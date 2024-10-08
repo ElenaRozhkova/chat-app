@@ -1,72 +1,32 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import { Server } from "socket.io";
-
-import "./config/mongo.js";
-
-import { VerifyToken, VerifySocketToken } from "./middlewares/VerifyToken.js";
-import chatRoomRoutes from "./routes/chatRoom.js";
-import chatMessageRoutes from "./routes/chatMessage.js";
-import userRoutes from "./routes/user.js";
-
-const app = express();
+import express from "express"
+import dotenv from "dotenv"
+import cors from "cors"
+import cookieParser from "cookie-parser"
+import mongoose from "mongoose"
+import authRoutes from "./routes/AuthRoutes.js"
 
 dotenv.config();
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+const app = express();
+const port = process.env.PORT || 3001;
+const databaseURL = process.env.DATABASE_URL;
 
-app.use(VerifyToken);
+app.use(cors({
+    origin: [process.env.ORIGIN],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true
+}))
 
-const PORT = process.env.PORT || 8080;
+app.use(cookieParser())
 
-app.use("/api/room", chatRoomRoutes);
-app.use("/api/message", chatMessageRoutes);
-app.use("/api/user", userRoutes);
+app.use(express.json())
 
-const server = app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+app.use("/api/auth", authRoutes)
 
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    credentials: true,
-  },
-});
+const server = app.listen(port, () => {
+    console.log(`Server is running on port ${port}`)
+})
 
-io.use(VerifySocketToken);
-
-global.onlineUsers = new Map();
-
-const getKey = (map, val) => {
-  for (let [key, value] of map.entries()) {
-    if (value === val) return key;
-  }
-};
-
-io.on("connection", (socket) => {
-  global.chatSocket = socket;
-
-  socket.on("addUser", (userId) => {
-    onlineUsers.set(userId, socket.id);
-    socket.emit("getUsers", Array.from(onlineUsers));
-  });
-
-  socket.on("sendMessage", ({ senderId, receiverId, message }) => {
-    const sendUserSocket = onlineUsers.get(receiverId);
-    if (sendUserSocket) {
-      socket.to(sendUserSocket).emit("getMessage", {
-        senderId,
-        message,
-      });
-    }
-  });
-
-  socket.on("disconnect", () => {
-    onlineUsers.delete(getKey(onlineUsers, socket.id));
-    socket.emit("getUsers", Array.from(onlineUsers));
-  });
-});
+mongoose.connect(databaseURL)
+    .then(() => console.log("DB connection successfull"))
+    .catch(err => console.log(err.message))
