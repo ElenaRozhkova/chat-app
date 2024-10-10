@@ -17,7 +17,7 @@ const databaseURL = process.env.DATABASE_URL;
     credentials: true // Разрешает передачу credentials (например, cookies)
 }))*/
 
-app.use(cors({
+/*app.use(cors({
     origin: function (origin, callback) {
         // Разрешаем запросы без origin (например, мобильные приложения или curl)
         if (!origin) return callback(null, true);
@@ -26,6 +26,11 @@ app.use(cors({
         callback(null, origin);
     },
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true
+}));*/
+
+app.use(cors({
+    origin: '*',
     credentials: true
 }));
 
