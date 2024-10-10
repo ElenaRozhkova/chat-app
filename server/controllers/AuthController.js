@@ -2,6 +2,9 @@
 import jwt from "jsonwebtoken"
 import User from "../models/UserModel.js"
 import { compare } from "bcrypt"
+import { renameSync, unlinkSync } from "fs"
+
+
 const maxAge = 3 * 24 * 60 * 60 * 1000
 
 const createToken = (email, userID) => {
@@ -33,8 +36,6 @@ export const getUserInfo = async (request, response, next) => {
 
 export const updateProfile = async (request, response, next) => {
     try {
-        console.log("request")
-        console.log(request)
         const { userID } = request
         const { firstName, lastName, color } = request.body;
 
@@ -63,6 +64,8 @@ export const updateProfile = async (request, response, next) => {
         return response.status(500).send("Internal Server Error");
     }
 }
+
+
 
 export const signup = async (request, response, next) => {
     try {
@@ -132,3 +135,57 @@ export const signin = async (request, response, next) => {
         return response.status(500).send("Internal Server Error");
     }
 }
+
+export const removeProfileImage = async (request, response, next) => {
+    try {
+
+        const { userID } = request;
+        const user = await User.findById(userID)
+
+        if (!user) {
+            return response.status(404).send("User not found")
+        }
+        if (user.image) {
+            unlinkSync(user.image)
+        }
+
+        user.image = null
+
+        await user.save();
+
+        return response.status(200).send("Profile image removed succesfull");
+    }
+    catch (error) {
+        console.log({ error })
+        return response.status(500).send("Internal Server Error");
+    }
+}
+
+
+export const addProfileImage = async (request, response, next) => {
+    try {
+
+        if (!request.file) {
+            return response.status(400).send("File not found")
+        }
+
+        const date = Date.now();
+        let fileName = "uploads/profiles/" + date + request.file.originalname;
+        renameSync(request.file.path, fileName)
+        const updatedUser = await User.findByIdAndUpdate(
+            request.userID,
+            { image: fileName },
+            { new: true, runValidators: true }
+        )
+
+        return response.status(200).json({
+            image: updatedUser.image,
+        })
+
+    }
+    catch (error) {
+        console.log({ error })
+        return response.status(500).send("Internal Server Error");
+    }
+}
+
