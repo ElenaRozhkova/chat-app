@@ -17,7 +17,7 @@ const databaseURL = process.env.DATABASE_URL;
     credentials: true // Разрешает передачу credentials (например, cookies)
 }))*/
 
-/*app.use(cors({
+app.use(cors({
     origin: function (origin, callback) {
         // Разрешаем запросы без origin (например, мобильные приложения или curl)
         if (!origin) return callback(null, true);
@@ -27,12 +27,12 @@ const databaseURL = process.env.DATABASE_URL;
     },
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true
-}));*/
+}));
 
-app.use(cors({
+/*app.use(cors({
     origin: '*',
     credentials: true
-}));
+}));*/
 
 app.use("/uploads/profiles", express.static("uploads/profiles"))
 
