@@ -13,23 +13,18 @@ const app = express();
 const port = process.env.PORT || 1000;
 const databaseURL = process.env.DATABASE_URL;
 
-app.use(cors({
+/*app.use(cors({
     origin: [process.env.ORIGIN],
 
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true
-}))
+}))*/
 
-/*app.use(cors({
-    origin: function (origin, callback) {
-        // Разрешаем запросы без origin (например, мобильные приложения или curl)
-        if (!origin) return callback(null, true);
-
-        // Разрешаем все origins
-        callback(null, origin);
-    },
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true
+app.use(cors({
+    origin: true, // Использует origin запроса, если он есть
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 /*app.use(cors({
