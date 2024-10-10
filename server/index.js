@@ -11,11 +11,23 @@ const app = express();
 const port = process.env.PORT || 3001;
 const databaseURL = process.env.DATABASE_URL;
 
-app.use(cors({
+/*app.use(cors({
     origin: process.env.ORIGIN || '*', // Использует значение из переменной окружения или разрешает все origins
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Разрешенные HTTP методы
     credentials: true // Разрешает передачу credentials (например, cookies)
-}))
+}))*/
+
+app.use(cors({
+    origin: function (origin, callback) {
+        // Разрешаем запросы без origin (например, мобильные приложения или curl)
+        if (!origin) return callback(null, true);
+
+        // Разрешаем все origins
+        callback(null, origin);
+    },
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true
+}));
 
 app.use("/uploads/profiles", express.static("uploads/profiles"))
 
