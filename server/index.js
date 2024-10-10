@@ -7,17 +7,20 @@ import authRoutes from "./routes/AuthRoutes.js"
 
 dotenv.config();
 
+
+
 const app = express();
 const port = process.env.PORT || 1000;
 const databaseURL = process.env.DATABASE_URL;
 
-/*app.use(cors({
-    origin: process.env.ORIGIN || '*', // Использует значение из переменной окружения или разрешает все origins
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], // Разрешенные HTTP методы
-    credentials: true // Разрешает передачу credentials (например, cookies)
-}))*/
-
 app.use(cors({
+    origin: [process.env.ORIGIN],
+
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true
+}))
+
+/*app.use(cors({
     origin: function (origin, callback) {
         // Разрешаем запросы без origin (например, мобильные приложения или curl)
         if (!origin) return callback(null, true);
@@ -40,6 +43,9 @@ app.use(cookieParser())
 
 app.use(express.json())
 
+
+
+app.use("/api/auth", authRoutes)
 app.use("/api/auth", authRoutes)
 
 const server = app.listen(port, () => {
