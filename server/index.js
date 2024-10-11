@@ -50,6 +50,14 @@ const server = app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 })
 
-mongoose.connect(databaseURL)
+/*mongoose.connect(databaseURL)
+    .then(() => console.log("DB connection successfull"))
+    .catch(err => console.log(err.message))*/
+
+
+mongoose.connect(databaseURL, {
+    serverSelectionTimeoutMS: 30000, // Увеличьте до 30 секунд
+    connectTimeoutMS: 30000
+})
     .then(() => console.log("DB connection successfull"))
     .catch(err => console.log(err.message))
