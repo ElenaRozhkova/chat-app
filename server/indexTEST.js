@@ -39,7 +39,19 @@ app.use(cookieParser())
 app.use(express.json())
 
 
-app.use("/api/auth", authRoutes)
+
+const test = async (request, response, next) => {
+    try {
+
+        return response.status(200).send("mytest");
+    }
+    catch (error) {
+        console.log({ error })
+        return response.status(500).send("Internal Server Error");
+    }
+}
+app.use("/test", test)
+
 app.use("/api/auth", authRoutes)
 
 const server = app.listen(port, () => {
