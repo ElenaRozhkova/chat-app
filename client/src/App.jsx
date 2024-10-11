@@ -1,6 +1,6 @@
 
 
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, HashRouter } from 'react-router-dom'
 import './App.css'
 import Auth from './pages/auth'
 import Chat from './pages/chat'
@@ -61,7 +61,7 @@ function App() {
 
   return (
     <div>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/auth" element={
             <AuthRoute>
@@ -84,7 +84,7 @@ function App() {
           } />
           <Route path="*" element={<Navigate to="/auth" />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   )
 }
