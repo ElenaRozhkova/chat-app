@@ -7,5 +7,3 @@ package-lock.json
 ## Firebase
 server/config/serviceAccountKey.json
 
-## Env file
-.env
