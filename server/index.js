@@ -54,10 +54,26 @@ const server = app.listen(port, () => {
     .then(() => console.log("DB connection successfull"))
     .catch(err => console.log(err.message))*/
 
-
+/*
 mongoose.connect(databaseURL, {
     serverSelectionTimeoutMS: 30000, // Увеличьте до 30 секунд
     connectTimeoutMS: 30000
 })
     .then(() => console.log("DB connection successfull"))
     .catch(err => console.log(err.message))
+
+*/
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.DATABASE_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log('MongoDB подключена');
+    } catch (error) {
+        console.error('Ошибка подключения MongoDB:', error);
+        process.exit(1);
+    }
+};
+
+connectDB();
