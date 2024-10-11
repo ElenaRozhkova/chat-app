@@ -50,20 +50,13 @@ const server = app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 })
 
-/*mongoose.connect(databaseURL)
-    .then(() => console.log("DB connection successfull"))
-    .catch(err => console.log(err.message))*/
-
-/*
-mongoose.connect(databaseURL, {
-    serverSelectionTimeoutMS: 30000, // Увеличьте до 30 секунд
-    connectTimeoutMS: 30000
-})
+mongoose.connect(databaseURL)
     .then(() => console.log("DB connection successfull"))
     .catch(err => console.log(err.message))
 
-*/
-const connectDB = async () => {
+
+
+/*const connectDB = async () => {
     try {
         await mongoose.connect(databaseURL, {
             useNewUrlParser: true,
@@ -76,4 +69,4 @@ const connectDB = async () => {
     }
 };
 
-connectDB();
+connectDB();*/
