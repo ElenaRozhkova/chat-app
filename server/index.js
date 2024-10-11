@@ -19,6 +19,13 @@ app.use(cors({
     credentials: true
 }))
 
+/*app.use(cors({
+    origin: process.env.ORIGIN ? process.env.ORIGIN.split(',').map(o => o.trim()) : '*',
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));*/
+
 
 app.use("/uploads/profiles", express.static("uploads/profiles"))
 
