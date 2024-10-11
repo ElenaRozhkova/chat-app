@@ -65,7 +65,7 @@ mongoose.connect(databaseURL, {
 */
 const connectDB = async () => {
     try {
-        await mongoose.connect(process.env.DATABASE_URL, {
+        await mongoose.connect(databaseURL, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
