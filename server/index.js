@@ -13,20 +13,17 @@ const app = express();
 const port = process.env.PORT || 1000;
 const databaseURL = process.env.DATABASE_URL;
 
-app.use(cors({
+/*app.use(cors({
     origin: [process.env.ORIGIN],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true
-}))
+}))*/
 
-/*app.use(cors({
-    origin: function (origin, callback) {
-        console.log("Request from origin:", origin);
-        callback(null, true);
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
-}));*/
+app.use(cors({
+    origin: '*',
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true
+}));
 
 
 app.use("/uploads/profiles", express.static("uploads/profiles"))
