@@ -20,11 +20,18 @@ const databaseURL = process.env.DATABASE_URL;
 }))*/
 
 app.use(cors({
-    origin: '*',
+    origin: process.env.ORIGIN || 'https://elenarozhkova.github.io',
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true
+    credentials: true,
+    optionsSuccessStatus: 200
 }));
 
+app.options('*', cors());
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    next();
+});
 
 app.use("/uploads/profiles", express.static("uploads/profiles"))
 
