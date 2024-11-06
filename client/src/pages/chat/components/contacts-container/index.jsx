@@ -1,18 +1,20 @@
-import { IoArrowBack } from 'react-icons/io5'
-import { useNavigate } from "react-router-dom";
+
+import NewDm from './components/new-dm';
+import ProfileInfo from './components/profile-info';
+import logo from '@/assets/login2.png';
 
 
 const ContactsContainer = () => {
-    const navigate = useNavigate();
     return (
         <div className="relative md:w-[35vw] lg:w-[30vw] xl:w-[20vw]  bg-[#1b1c24] border-r-2 border-[#2f303b] w-full">
 
-            <div className="pt-3 pr-10 flex items-center justify-center">
-                <IoArrowBack className="text-4xl lg:text-6xl text-white/90 cursor-pointer" onClick={() => navigate("/profile")} />
+            <div className="pt-3 pr-10 flex items-center justify-start ">
+                <img className="text-xl  cursor-pointer w-20 h-auto pl-10" src={logo} alt="logo" />
             </div>
             <div className="my-5">
                 <div className="flex items-center justify-between pr-10">
                     <Title text="Direct Messages" />
+                    <NewDm />
                 </div>
             </div>
             <div className="my-5">
@@ -20,6 +22,7 @@ const ContactsContainer = () => {
                     <Title text="Channels" />
                 </div>
             </div>
+            <ProfileInfo />
         </div>
     )
 }

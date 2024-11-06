@@ -61,7 +61,7 @@ function App() {
 
   return (
     <div>
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
           <Route path="/auth" element={
             <AuthRoute>
@@ -84,7 +84,7 @@ function App() {
           } />
           <Route path="*" element={<Navigate to="/auth" />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </div>
   )
 }

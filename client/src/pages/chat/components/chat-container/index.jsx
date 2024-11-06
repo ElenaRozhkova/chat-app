@@ -1,6 +1,6 @@
-import ChatHeader from "../contacts-container/components/chat-header";
-import MessageBar from "../contacts-container/components/message-bar";
-import MessageContainer from "../contacts-container/components/message-container";
+import ChatHeader from "./components/chat-header";
+import MessageBar from "./components/message-bar";
+import MessageContainer from "./components/message-container";
 
 const ChatContainer = () => {
     return (

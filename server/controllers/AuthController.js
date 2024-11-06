@@ -161,6 +161,18 @@ export const removeProfileImage = async (request, response, next) => {
     }
 }
 
+export const logout = async (request, response, next) => {
+    try {
+
+        response.cookie("jwt", "", { maxAge: 1, secure: true, sameSite: "None" })
+        return response.status(200).send("Logout succesfull");
+    }
+    catch (error) {
+        console.log({ error })
+        return response.status(500).send("Internal Server Error");
+    }
+}
+
 
 export const addProfileImage = async (request, response, next) => {
     try {
