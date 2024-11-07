@@ -12,6 +12,14 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)'
       },
+      screens: {
+        'xs': '480px',
+        'sm': '640px',   // Small screens (e.g., mobile devices)
+        'md': '768px',   // Medium screens (e.g., tablets)
+        'lg': '1024px',  // Large screens (e.g., small laptops)
+        'xl': '1280px',  // Extra large screens (e.g., desktops)
+        '2xl': '1536px', // 2x extra large screens (e.g., large desktops)
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

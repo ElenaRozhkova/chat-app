@@ -13,7 +13,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { SEARCH_CONTACTS_ROUTES } from "@/utils/constants"
+import { SEARCH_CONTACTS_ROUTES, GET_MESSAGES_ROUTES } from "@/utils/constants"
 import Lottie from "react-lottie";
 import { animationsDefaultOptions } from "@/lib/utils";
 import { apiClient } from "@/lib/api-client"
@@ -51,6 +51,9 @@ const NewDm = () => {
     const selectNewContact = (contact) => {
         setOpenNewContactModal(false);
         setSelectedChatType("contact");
+
+
+
         setSelectedChatData(contact);
         setSearchedContacts([]);
     }
@@ -69,7 +72,7 @@ const NewDm = () => {
                 </Tooltip>
             </TooltipProvider>
             <Dialog open={openNewContactModal} onOpenChange={setOpenNewContactModal}>
-                <DialogContent className="bg-[#181920] border-none text-white w-[400px] h-[400px] flex flex-col ">
+                <DialogContent className="bg-[#181920] border-none text-white w-[300px] h-[80vh] sm:w-[300px] flex flex-col ">
                     <DialogHeader>
                         <DialogTitle>Please select a contact</DialogTitle>
                     </DialogHeader>
@@ -91,7 +94,7 @@ const NewDm = () => {
                                                         <AvatarImage
                                                             src={`${HOST}/${contact.image}`}
                                                             alt="profile"
-                                                            className="object-cover w-full h-full bg-black"
+                                                            className="object-cover w-full h-full bg-black rounded-full"
                                                         />
                                                         :
                                                         <div className={`uppercase h-12 w-12  text-lg border-[1px] flex items-center justify-center rounded-full 
