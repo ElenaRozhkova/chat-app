@@ -17,7 +17,6 @@ const MessageContainer = () => {
                     { withCredentials: true }
                 );
                 if (response.data.messages) {
-                    console.log("getMessages222")
                     setSelectedChatMessages(response.data.messages)
                 } else {
                     setSelectedChatMessages([])

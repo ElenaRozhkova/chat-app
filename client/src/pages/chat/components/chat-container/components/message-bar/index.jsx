@@ -30,6 +30,7 @@ const MessageBar = () => {
 
     const handleSendMessage = async () => {
         if (selectedChatType === "contact") {
+
             socket.emit("sendMessage", {
                 sender: userInfo.id,
                 content: message,
@@ -38,7 +39,9 @@ const MessageBar = () => {
                 fileUrl: undefined,
             })
 
+            setMessage("");
         }
+
     }
 
     const handleAddEmoji = (emoji) => {
